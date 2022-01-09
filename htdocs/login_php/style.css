@@ -1,0 +1,43 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: linear-gradient(50deg, #1B2A4A, #595B63) no-repeat;
+}
+
+.card-login {
+	padding: 30px 0 0 0;
+	margin: auto;
+	width: 350px;
+	height: 247px;
+}
+
+.center {
+	text-align: center;
+}
+
+#user {
+	font-size: 3em;
+}
+
+@media (max-width: 575.98px) {
+	
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+	
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+	
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+	
+}
+
+@media (min-width: 1200px) {
+	
+}

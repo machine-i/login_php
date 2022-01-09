@@ -1,0 +1,1 @@
+<?php require_once "../../login_php_private/accounts_controller.php" ?>
