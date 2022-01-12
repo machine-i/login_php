@@ -1,4 +1,12 @@
-<?php require "accounts_controller.php"; ?>
+<?php
+
+  session_start();
+
+  if(!isset($_SESSION['auth']) || $_SESSION['auth'] != 'Y') {
+    header('Location: index.php?login=error2');
+  }
+
+?>
 
 <html>
   <head>
@@ -26,7 +34,7 @@
               
               <p class="text-success">Successfully connected.</p> 
 
-              <a class="btn btn-lg btn-dark btn-block" href="index.php">Back</a>
+              <a class="btn btn-lg btn-dark btn-block" href="logoff.php">Log out</a>
               
             </div>
           </div>
