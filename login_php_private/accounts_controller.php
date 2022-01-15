@@ -2,31 +2,24 @@
 	
 	session_start();
 
-	require "../../login_with_db/connection_db.php";
-	require "../../login_with_db/account_model.php";
-	require "../../login_with_db/accounts_service.php";
+	require "../../login_php_private/connection_db.php";
+	require "../../login_php_private/account_model.php";
+	require "../../login_php_private/accounts_service.php";
 
 	$action = isset($_GET['action']) ? $_GET['action'] : $action;
 
 	if($action == 'verifyAuthentication') {
 
 		$connection = new Connection();
+		$account_model = new Account();
 
-		$query = '
-			select
-				t.email, t.pass
-			from 
-				tb_accounts as t
-		';
-
-		$stmt = $connection->connect()->prepare($query);
-		$stmt->execute();
-		$accounts = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$accounts_service = new Service($connection, $account_model);
+		$dataAccountBd = $accounts_service->getAccountBd();
 
 		$authentication = false;
 		$check = false;
 
-		foreach($accounts as $account) {
+		foreach($dataAccountBd as $account) {
 			if(isset($_POST['email']) && isset($_POST['password'])) {
 				$check = true;
 				if($account->email == $_POST['email'] && $account->pass == $_POST['password']) {
@@ -53,8 +46,6 @@
 			isset($_POST['cPass']) && !empty($_POST['cPass'])
 		) {
 
-			//echo isset($_POST['firstName']) ? json_encode($_POST) : '';
-
 			$connection = new Connection();
 			$account_model = new Account();
 
@@ -64,19 +55,18 @@
 			$account_model->__set('pass', $_POST['pass']);
 			$account_model->__set('id_profile', 2);
 
-			echo $account_model->__get('firstName').' | ';
-			echo $account_model->__get('lastName').' | ';
-			echo $account_model->__get('email').' | ';
-			echo $account_model->__get('pass').' | ';
-			echo $account_model->__get('id_profile').' | ';
-
 			$accounts_service = new Service($connection, $account_model);
-			$accounts_service->setAccountBd();
+			$setBd = $accounts_service->setAccountBd();
 
-			//echo 'Conseguimos setar no BD';
-		} else {
-			echo 'error';
-		}
+			if($setBd) {
+				$_SESSION['auth'] = 'Y';
+				echo 'home.php';
+			} else {
+				$_SESSION['auth'] = 'N';
+				echo 'create_new_account.php?create=error';
+			}
+
+		} else {}
 	}
 	
 

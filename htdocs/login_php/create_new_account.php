@@ -30,8 +30,9 @@
             type: 'post',
             url: 'accounts_controller.php?action=createAccount',
             data: dataForm,
-            //dataType: 'json',
-            success: dataForm => { console.log(dataForm) },
+            success: dataForm => { 
+              $(window.document.location).attr('href', dataForm)
+            },
             error: errorCreate => { console.log(errorCreate) }
           })
         })
@@ -68,15 +69,15 @@
 
                 <div class="form-group">
                   <input id="cPass" name="cPass" type="password" class="form-control" placeholder="Confirm your password">
-
-                  <?php if(isset($_GET['login']) && $_GET['login'] == 'error') { ?>
-
-                    <div class="text-danger">
-                      E-mail or password is invalid
-                    </div>
-
-                  <?php } ?>
                 </div>
+
+                <?php if(isset($_GET['create']) && $_GET['create'] == 'error') { ?>
+
+                  <div class="text-danger mb-2">
+                    Data is invalid.
+                  </div>
+
+                <?php } ?>
 
                 <button id="buttonCreate" class="btn btn-lg btn-dark btn-block" type="submit">Create account</button>
                 <a class="btn btn-lg btn-outline-dark btn-block" href="index.php">Back</a>

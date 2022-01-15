@@ -1,1 +1,1 @@
-<?php require_once "../../login_with_db/accounts_controller.php" ?>
+<?php require_once "../../login_php_private/accounts_controller.php" ?>
