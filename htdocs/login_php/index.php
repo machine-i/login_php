@@ -1,4 +1,9 @@
-<?php require "accounts_controller.php"; ?>
+<?php
+
+  $action = 'verifyAuthentication';
+  require "accounts_controller.php";
+
+?>
 
 <html>
   <head>
@@ -23,7 +28,7 @@
               <i id="user" class="far fa-user"></i>
             </div>
             <div class="card-body">
-              <form id="form" action="accounts_controller.php" method="post">
+              <form id="form" action="accounts_controller.php?action=verifyAuthentication" method="post">
                 <div class="form-group">
                   <input name="email" type="email" class="form-control" placeholder="E-mail">
                 </div>
@@ -39,7 +44,16 @@
 
                 <?php } ?>
 
+                <?php if(isset($_GET['login']) && $_GET['login'] == 'error2') { ?>
+
+                <div class="text-danger mb-2">
+                  Please provide a valid email address and password before accessing protected pages.
+                </div>
+
+                <?php } ?>
+
                 <button class="btn btn-lg btn-dark btn-block" type="submit">Log in</button>
+                <a class="btn btn-lg btn-outline-dark btn-block" href="create_new_account.php">Create new account</a>
               </form>
             </div>
           </div>

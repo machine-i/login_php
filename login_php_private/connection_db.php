@@ -15,6 +15,8 @@
 					"$this->pass"
 				);
 
+				$connection->exec('set charset utf8');
+
 				return $connection;
 
 			} catch(PDOException $e) {
