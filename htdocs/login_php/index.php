@@ -28,7 +28,7 @@
               <i id="user" class="far fa-user"></i>
             </div>
             <div class="card-body">
-              <form id="form" action="accounts_controller.php" method="post">
+              <form id="form" action="accounts_controller.php?action=verifyAuthentication" method="post">
                 <div class="form-group">
                   <input name="email" type="email" class="form-control" placeholder="E-mail">
                 </div>

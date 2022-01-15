@@ -16,47 +16,27 @@
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
     <script>
-      function verify() {
-        let fName = document.getElementById('firstName')
-        let lName = document.getElementById('lastName')
-        let email = document.getElementById('email')
-        let pass = document.getElementById('pass')
-        let cPass = document.getElementById('cPass')
+      
+      $(document).ready(() => {
+        $('#buttonCreate').on('click', (e) => {
+          e.preventDefault()
 
-        if(
-          fName.value == lName.value || 
-          email.value.indexOf('@') == -1 || 
-          email.value.indexOf('.com') == -1 || 
-          pass.value != cPass.value ||
-          pass.value.length == 0
-        ) {
-          console.log('tem erro')
+          let dataForm = $('#form').serialize()
 
-          if(fName.value == lName.value) {
-            fName.style.border = '1px solid red'
-            lName.style.border = '1px solid red'
-          } else {
-            fName.style.border = ''
-            lName.style.border = ''
-          }
+          $.ajax({
+            type: 'post',
+            url: 'accounts_controller.php?action=createAccount',
+            data: dataForm,
+            //dataType: 'json',
+            success: dataForm => { console.log(dataForm) },
+            error: errorCreate => { console.log(errorCreate) }
+          })
+        })
+      })
 
-          if(email.value.indexOf('@') == -1 || email.value.indexOf('.com') == -1) {
-            email.style.border = '1px solid red'
-          } else {
-            email.style.border = ''
-          }
-
-          if(pass.value != cPass.value || pass.value.length == 0) {
-            cPass.style.border = '1px solid red'
-          } else {
-            cPass.style.border = ''
-          }
-
-        } else {
-          location.href = 'accounts_controller.php?action=createAccount'
-        }
-      }
     </script>
   </head>
 
@@ -71,7 +51,7 @@
               <i id="user" class="fas fa-user-plus"></i>
             </div>
             <div class="card-body">
-              <form id="form" action="accounts_controller.php" method="post">
+              <form id="form">
 
                 <div class="input-group">
                   <input id="firstName" name="firstName" type="text" class="form-control" placeholder="First name">
@@ -83,22 +63,22 @@
                 </div>
 
                 <div class="form-group">
-                  <input id="pass" name="password" type="password" class="form-control" placeholder="Enter a password">
+                  <input id="pass" name="pass" type="password" class="form-control" placeholder="Enter a password">
                 </div>
 
                 <div class="form-group">
-                  <input id="cPass" name="conPassword" type="password" class="form-control" placeholder="Confirm your password">
+                  <input id="cPass" name="cPass" type="password" class="form-control" placeholder="Confirm your password">
+
+                  <?php if(isset($_GET['login']) && $_GET['login'] == 'error') { ?>
+
+                    <div class="text-danger">
+                      E-mail or password is invalid
+                    </div>
+
+                  <?php } ?>
                 </div>
 
-                <?php if(isset($_GET['login']) && $_GET['login'] == 'error') { ?>
-
-                <div class="text-danger">
-                  E-mail or password is invalid
-                </div>
-
-                <?php } ?>
-
-                <div class="btn btn-lg btn-dark btn-block" onclick="verify()">Create account</div>
+                <button id="buttonCreate" class="btn btn-lg btn-dark btn-block" type="submit">Create account</button>
                 <a class="btn btn-lg btn-outline-dark btn-block" href="index.php">Back</a>
 
               </form>

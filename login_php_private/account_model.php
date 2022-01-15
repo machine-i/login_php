@@ -2,6 +2,8 @@
 
 	class Account {
 		private $id;
+		private $firstName;
+		private $lastName;
 		private $email;
 		private $pass;
 		private $id_profile;
