@@ -38,7 +38,7 @@
 
                 <?php if(isset($_GET['login']) && $_GET['login'] == 'error') { ?>
 
-                <div class="text-danger">
+                <div class="text-danger mb-2">
                   E-mail or password is invalid
                 </div>
 

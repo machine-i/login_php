@@ -25,6 +25,17 @@
 			$stmt->bindValue(':id_profile', $this->account_model->__get('id_profile'));
 
 			$stmt->execute();
+
+			return true;
+		}
+
+		public function getAccountBd() {
+			$query = 'select t.email, t.pass from tb_accounts as t';
+
+			$stmt = $this->connection->prepare($query);
+			$stmt->execute();
+
+			return $stmt->fetchAll(PDO::FETCH_OBJ);
 		}
 	}
 
